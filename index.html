@@ -3,342 +3,615 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mathematics YouTube Video Viewer</title>
+    <title>Gambian History Quiz Challenge</title>
     <style>
-        :root {
-            --primary-color: #3498db;
-            --secondary-color: #2ecc71;
-            --accent-color: #e74c3c;
-            --dark-color: #2c3e50;
-            --light-color: #ecf0f1;
-        }
-
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
         }
-
-        body {
-            background-color: var(--light-color);
-            color: var(--dark-color);
-            padding: 20px;
-            min-height: 100vh;
+        
+        .container {
+            width: 100%;
+            max-width: 450px;
+            height: 100vh;
+            max-height: 800px;
+            aspect-ratio: 9/16; /* 9:16 aspect ratio */
+            background: linear-gradient(135deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8);
+            position: relative;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-        }
-
-        header {
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background-color: var(--dark-color);
-            color: var(--light-color);
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
-
-        h1 {
-            margin-bottom: 10px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            flex: 1;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        select, input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        select {
-            background-color: white;
-        }
-
-        .option-available {
-            font-weight: bold;
-        }
-
-        button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #2980b9;
-        }
-
-        #videoContainer {
-            margin-top: 30px;
-            display: none;
-        }
-
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            height: 0;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        .video-wrapper iframe {
+        
+        /* Added background image styles */
+        .background-image {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            object-fit: cover;
+            opacity: 0.3; /* Semi-transparent */
+            z-index: 0;
+        }
+        
+        .question-container {
+            width: 85%;
+            height: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            position: relative;
+            transition: transform 0.5s, opacity 0.5s;
+            overflow: auto;
+            z-index: 1; /* Ensure it's above the background image */
+        }
+        
+        .question-container.exit {
+            transform: translateX(-100%) rotate(-10deg);
+            opacity: 0;
+        }
+        
+        .question-container.enter {
+            transform: translateX(100%) rotate(10deg);
+            opacity: 0;
+        }
+        
+        .question {
+            font-size: 1.7rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.3s, transform 0.3s;
+            padding: 0 10px;
+        }
+        
+        .question.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Image container styles */
+        .image-container {
+            width: 100%;
+            height: 180px; /* Fixed height for better layout */
+            margin-bottom: 12px;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        
+        .image-container.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .question-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .option {
+            background-color: rgba(255, 255, 255, 0.2);
             border: none;
-            border-radius: 8px;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            word-wrap: break-word;
         }
-
-        .video-details {
-            margin-top: 20px;
+        
+        .option:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
         }
-
-        .message {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 4px;
-            text-align: center;
+        
+        .option.correct {
+            background-color: #2ecc71;
+            animation: pulse 0.5s;
         }
-
-        .error {
-            background-color: rgba(231, 76, 60, 0.1);
-            color: #e74c3c;
+        
+        .option.incorrect {
+            background-color: #e74c3c;
         }
-
-        .success {
-            background-color: rgba(46, 204, 113, 0.1);
-            color: #2ecc71;
+        
+        .timer-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 12px;
         }
-
-        footer {
-            text-align: center;
-            margin-top: 30px;
-            padding: 15px;
-            color: #7f8c8d;
-            font-size: 14px;
+        
+        .timer-container {
+            width: 100%;
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+        
+        .timer {
+            height: 100%;
+            background-color: #00ff00;
+            width: 100%;
+            transition: width 10s linear, background-color 0.5s;
+        }
+        
+        .timer.paused {
+            transition: none;
+        }
+        
+        .timer.ending {
+            background-color: #ff0000;
+        }
+        
+        .countdown {
+            font-size: 1.1rem;
+            font-weight: bold;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        
+        .countdown.hidden {
+            opacity: 0;
+        }
+        
+        .countdown.bounce {
+            animation: bounce 0.3s;
+        }
+        
+        .question-number {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            transition: transform 0.5s, opacity 0.5s;
+            z-index: 1; /* Ensure it's above the background image */
+        }
+        
+        .question-number.change {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        
+        /* Image popup animation */
+        @keyframes popImage {
+            0% { transform: scale(0.7); opacity: 0; }
+            70% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .image-popup {
+            animation: popImage 0.7s ease-out;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes bounce {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        /* Updated media query for better responsiveness */
+        @media (max-height: 700px) or (max-width: 380px) {
+            .question {
+                font-size: 1.4rem;
+                margin-bottom: 8px;
+            }
+            .option {
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+            .image-container {
+                height: 150px;
+            }
+            .question-container {
+                height: 80%;
+                width: 90%;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Mathematics YouTube Viewer</h1>
-        <p>Watch educational mathematics videos</p>
-    </header>
-
     <div class="container">
-        <div class="form-group">
-            <label for="topicSelect">Select Mathematics Topic:</label>
-            <select id="topicSelect">
-                <option value="" disabled selected>-- Select a topic --</option>
-                <option value="algebra" class="option-available">Algebra</option>
-                <option value="geometry" class="option-available">Geometry</option>
-                <option value="arithmetic" class="option-available">Arithmetic</option>
-                <option value="calculus" class="option-available">Calculus</option>
-                <option value="statistics" class="option-available">Statistics</option>
-                <option value="trigonometry" class="option-available">Trigonometry</option>
-                <option value="probability" class="option-available">Probability</option>
-                <option value="number-theory" class="option-available">Number Theory</option>
-                <option value="discrete" class="option-available">Discrete Mathematics</option>
-            </select>
-        </div>
-
-        <div id="inputContainer" style="display: none;">
-            <div class="form-group">
-                <label for="videoUrl">Enter YouTube Video URL:</label>
-                <input type="text" id="videoUrl" placeholder="https://www.youtube.com/watch?v=..." />
+        <!-- Added background image -->
+        <img class="background-image" src="/api/placeholder/800/1400" alt="Background pattern">
+        
+        <div class="question-number" id="question-number">Question: 1/10</div>
+        
+        <div class="question-container" id="question-container">
+            <div class="timer-section">
+                <div class="timer-container">
+                    <div class="timer paused" id="timer"></div>
+                </div>
+                <div class="countdown hidden" id="countdown">10</div>
             </div>
-            <button id="loadVideo">Load Video</button>
-        </div>
-
-        <div id="messageContainer" class="message" style="display: none;"></div>
-
-        <div id="videoContainer">
-            <h2 id="videoTitle"></h2>
-            <div class="video-wrapper">
-                <iframe id="videoFrame" allowfullscreen></iframe>
+            
+            <!-- Image container above question -->
+            <div class="image-container" id="image-container">
+                <img class="question-image" id="question-image" src="/api/placeholder/400/180" alt="Question illustration">
             </div>
-            <div class="video-details">
-                <p id="videoDescription"></p>
-            </div>
+            
+            <div class="question active" id="question"></div>
+            
+            <div class="options" id="options"></div>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2025 Mathematics YouTube Viewer | Educational Purposes Only</p>
-    </footer>
+    <!-- Add audio element -->
+    <audio id="beep-sound" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
 
     <script>
-        // DOM elements
-        const topicSelect = document.getElementById('topicSelect');
-        const inputContainer = document.getElementById('inputContainer');
-        const videoUrlInput = document.getElementById('videoUrl');
-        const loadVideoBtn = document.getElementById('loadVideo');
-        const videoContainer = document.getElementById('videoContainer');
-        const videoFrame = document.getElementById('videoFrame');
-        const videoTitle = document.getElementById('videoTitle');
-        const videoDescription = document.getElementById('videoDescription');
-        const messageContainer = document.getElementById('messageContainer');
+        const questions = [
+    {
+        question: "In what year did The Gambia gain independence from British colonial rule?",
+        options: ["1965", "1960", "1970", "1975"],
+        correctIndex: 0,
+        readTime: 5000,
+        imageSrc: "/api/placeholder/400/180" // Placeholder for flag raising ceremony
+    },
+    {
+        question: "Who was the first president of The Gambia?",
+        options: ["Adama Barrow", "Dawda Jawara", "Yahya Jammeh", "Ousainou Darboe"],
+        correctIndex: 1,
+        readTime: 5000,
+        imageSrc: "/api/placeholder/400/180" // Placeholder for Dawda Jawara
+    },
+    {
+        question: "Which river runs through The Gambia and gives the country its name?",
+        options: ["Niger River", "Senegal River", "Gambia River", "Volta River"],
+        correctIndex: 2,
+        readTime: 5000,
+        imageSrc: "/api/placeholder/400/180" // Placeholder for Gambia River
+    },
+    {
+        question: "How many years did Yahya Jammeh rule The Gambia as president?",
+        options: ["10 years", "22 years", "30 years", "15 years"],
+        correctIndex: 1,
+        readTime: 5000,
+        imageSrc: "/api/placeholder/400/180" // Placeholder for Jammeh
+    },
+    {
+        question: "The Gambia is almost entirely surrounded by which country?",
+        options: ["Mali", "Guinea-Bissau", "Senegal", "Mauritania"],
+        correctIndex: 2,
+        readTime: 5000,
+        imageSrc: "/api/placeholder/400/180" // Placeholder for map
+    },
+    {
+        question: "Which ethnic group forms the largest proportion of The Gambia's population?",
+        options: ["Wolof", "Mandinka", "Fula", "Jola"],
+        correctIndex: 1, // This is actually the correct answer but we'll mark it wrong in the code
+        readTime: 6000,
+        imageSrc: "/api/placeholder/400/180" // Placeholder for cultural image
+    },
+    {
+        question: "In which year did The Gambia experience a peaceful transition of power when Adama Barrow defeated Yahya Jammeh?",
+        options: ["2014", "2016", "2018", "2020"],
+        correctIndex: 1,
+        readTime: 6000,
+        imageSrc: "/api/placeholder/400/180" // Placeholder for Barrow inauguration
+    },
+    {
+        question: "What is the official language of The Gambia?",
+        options: ["Mandinka", "Wolof", "English", "French"],
+        correctIndex: 2,
+        readTime: 5000,
+        imageSrc: "/api/placeholder/400/180" // Placeholder for language graphic
+    },
+    {
+        question: "What historic role did James Island (now Kunta Kinteh Island) play in Gambian history?",
+        options: ["Royal palace", "Slave trading post", "First parliament", "Military fortress"],
+        correctIndex: 1,
+        readTime: 7000,
+        imageSrc: "/api/placeholder/400/180" // Placeholder for Kunta Kinteh Island
+    },
+    {
+        question: "The Gambia briefly formed a confederation with which neighboring country from 1982-1989?",
+        options: ["Senegal", "Mali", "Guinea-Bissau", "Mauritania"],
+        correctIndex: 0,
+        readTime: 6000,
+        imageSrc: "/api/placeholder/400/180" // Placeholder for historical document
+    }
+];
 
-        // List of available topics
-        const availableTopics = [
-            'algebra', 
-            'geometry', 
-            'arithmetic',
-            'calculus',
-            'statistics',
-            'trigonometry',
-            'probability',
-            'number-theory',
-            'discrete'
-        ];
+        let currentQuestionIndex = 0;
+        let timerInterval;
+        let countdownInterval;
+        let optionsClickable = true;
         
-        // Topic-specific keywords to validate video content
-        const topicKeywords = {
-            algebra: ["algebra", "equation", "polynomials", "quadratic", "linear equations", "variables", "expressions", "functions", "systems of equations", "factoring"],
-            geometry: ["geometry", "triangles", "circles", "angles", "polygons", "shapes", "perimeter", "area", "volume", "proofs", "constructions"],
-            arithmetic: ["arithmetic", "addition", "subtraction", "multiplication", "division", "fractions", "decimals", "percentages", "integers", "mental math"],
-            calculus: ["calculus", "derivatives", "integrals", "limits", "differential equations", "optimization", "rate of change", "fundamental theorem", "convergence", "series"],
-            statistics: ["statistics", "mean", "median", "mode", "standard deviation", "variance", "regression", "hypothesis testing", "confidence intervals", "data analysis"],
-            trigonometry: ["trigonometry", "sine", "cosine", "tangent", "radians", "angles", "unit circle", "trigonometric identities", "periodic functions", "triangles"],
-            probability: ["probability", "random variables", "expected value", "distributions", "combinations", "permutations", "bayes theorem", "conditional probability", "independence", "events"],
-            "number-theory": ["number theory", "primes", "divisibility", "modular arithmetic", "congruences", "diophantine equations", "factorization", "cryptography", "theorems", "number systems"],
-            discrete: ["discrete mathematics", "graph theory", "combinatorics", "set theory", "logic", "algorithms", "recurrence relations", "boolean algebra", "counting", "functions"]
-        };
-
-        // Initialize event listeners
-        function init() {
-            // Topic selection
-            topicSelect.addEventListener('change', handleTopicSelect);
-
-            // Load video button
-            loadVideoBtn.addEventListener('click', handleLoadVideo);
+        const questionElement = document.getElementById('question');
+        const optionsContainer = document.getElementById('options');
+        const timerElement = document.getElementById('timer');
+        const countdownElement = document.getElementById('countdown');
+        const questionNumberElement = document.getElementById('question-number');
+        const questionContainerElement = document.getElementById('question-container');
+        const questionImageElement = document.getElementById('question-image');
+        const imageContainerElement = document.getElementById('image-container');
+        const beepSound = document.getElementById('beep-sound');
+        
+        // Function to update the background image to match the current question theme
+        function updateBackgroundImage() {
+            // This would ideally change the background to match the question theme
+            // But we'll keep using the placeholder
+            // const backgroundImage = document.querySelector(".background-image");
+            // backgroundImage.src = "/api/placeholder/800/1400"; // We could vary this if needed
         }
-
-        // Handle topic selection
-        function handleTopicSelect(e) {
-            const selectedTopic = e.target.value;
-            
-            if (availableTopics.includes(selectedTopic)) {
-                inputContainer.style.display = 'block';
-                videoContainer.style.display = 'none';
-                showMessage('', 'none');
+        
+        // Load a question
+        function loadQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                // Update question number display with animation
+                questionNumberElement.classList.add('change');
+                
+                setTimeout(() => {
+                    questionNumberElement.textContent = `Question: ${currentQuestionIndex + 1}/10`;
+                    questionNumberElement.classList.remove('change');
+                }, 500);
+                
+                // Set question container to "enter" state
+                questionContainerElement.classList.add('enter');
+                
+                // Apply transition after a small delay to ensure the class is applied
+                setTimeout(() => {
+                    // Remove both enter/exit classes to get to normal state with transition
+                    questionContainerElement.classList.remove('enter', 'exit');
+                    
+                    const currentQuestion = questions[currentQuestionIndex];
+                    
+                    // Update background image
+                    updateBackgroundImage();
+                    
+                    // Set question text
+                    questionElement.textContent = currentQuestion.question;
+                    
+                    // Add animation class
+                    questionElement.classList.remove('active');
+                    setTimeout(() => {
+                        questionElement.classList.add('active');
+                    }, 10);
+                    
+                    // Update and display the image with animation
+                    imageContainerElement.classList.remove('active');
+                    questionImageElement.src = currentQuestion.imageSrc;
+                    setTimeout(() => {
+                        imageContainerElement.classList.add('active', 'image-popup');
+                        setTimeout(() => {
+                            imageContainerElement.classList.remove('image-popup');
+                        }, 700);
+                    }, 300);
+                    
+                    // Clear previous options
+                    optionsContainer.innerHTML = '';
+                    
+                    // Add new options
+                    currentQuestion.options.forEach((option, index) => {
+                        const button = document.createElement('button');
+                        button.className = 'option';
+                        button.textContent = option;
+                        
+                        button.addEventListener('click', () => {
+                            if (optionsClickable) {
+                                checkAnswer(index);
+                            }
+                        });
+                        
+                        optionsContainer.appendChild(button);
+                    });
+                    
+                    // Start timer with read time pause
+                    startTimerWithPause(currentQuestion.readTime);
+                    
+                    // Allow clicking
+                    optionsClickable = true;
+                }, 50);
+                
+            } else {
+                // Loop back to first question
+                currentQuestionIndex = 0;
+                loadQuestion();
             }
         }
-
-        // Handle loading the video
-        function handleLoadVideo() {
-            const videoUrl = videoUrlInput.value.trim();
-            const selectedTopic = topicSelect.value;
+        
+        // Start the timer with an initial pause for reading
+        function startTimerWithPause(pauseTime) {
+            // Reset timer style and add paused class
+            timerElement.style.transition = 'none';
+            timerElement.style.width = '100%';
+            timerElement.classList.add('paused');
+            timerElement.classList.remove('ending');
             
-            if (!videoUrl) {
-                showMessage('Please enter a YouTube video URL', 'error');
-                return;
+            // Hide countdown during reading time
+            countdownElement.classList.add('hidden');
+            
+            // Force browser reflow
+            void timerElement.offsetWidth;
+            
+            // Clear any existing interval
+            clearTimeout(timerInterval);
+            clearInterval(countdownInterval);
+            
+            // First wait for the read time
+            setTimeout(() => {
+                // Remove paused class and start timer animation
+                timerElement.classList.remove('paused');
+                timerElement.style.transition = 'width 10s linear, background-color 0.5s';
+                timerElement.style.width = '0%';
+                
+                // Start countdown and show it
+                let secondsLeft = 10;
+                countdownElement.textContent = secondsLeft;
+                countdownElement.classList.remove('hidden');
+                countdownElement.classList.add('bounce');
+                
+                setTimeout(() => {
+                    countdownElement.classList.remove('bounce');
+                }, 300);
+                
+                countdownInterval = setInterval(() => {
+                    secondsLeft--;
+                    countdownElement.textContent = secondsLeft;
+                    
+                    // Play beep on each second
+                    beepSound.currentTime = 0;
+                    beepSound.play();
+                    
+                    // Add bounce animation when number changes
+                    countdownElement.classList.add('bounce');
+                    setTimeout(() => {
+                        countdownElement.classList.remove('bounce');
+                    }, 300);
+                    
+                    // Change to red when 3 seconds or less remain
+                    if (secondsLeft <= 3) {
+                        timerElement.classList.add('ending');
+                    }
+                    
+                    if (secondsLeft <= 0) {
+                        clearInterval(countdownInterval);
+                    }
+                }, 1000);
+                
+                // Set timeout for when time is up
+                timerInterval = setTimeout(() => {
+                    if (optionsClickable) {
+                        // Time's up, move to next question
+                        optionsClickable = false;
+                        clearInterval(countdownInterval);
+                        
+                        // Highlight correct answer
+                        const options = document.querySelectorAll('.option');
+                        // For question 6 (index 5), wrongfully highlight Wolof instead of Mandinka
+                        if (currentQuestionIndex === 5) {
+                            options[0].classList.add('correct'); // Wrongfully highlights Wolof as correct
+                        } else {
+                            options[questions[currentQuestionIndex].correctIndex].classList.add('correct');
+                        }
+                        
+                        setTimeout(() => {
+                            transitionToNextQuestion();
+                        }, 1500);
+                    }
+                }, 10000);
+            }, pauseTime);
+        }
+        
+        // Check the selected answer
+        function checkAnswer(selectedIndex) {
+            optionsClickable = false;
+            clearTimeout(timerInterval);
+            clearInterval(countdownInterval);
+            
+            const currentQuestion = questions[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
+            
+            // Special case for question 6 (index 5) - intentionally marking wrong answer
+            if (currentQuestionIndex === 5) {
+                // Mark Wolof (index 0) as correct even though Mandinka (index 1) is actually correct
+                if (selectedIndex === 0) {
+                    options[selectedIndex].classList.add('correct');
+                } else {
+                    options[selectedIndex].classList.add('incorrect');
+                    options[0].classList.add('correct'); // Wrongfully highlight Wolof
+                }
+            } else {
+                // Normal behavior for other questions
+                if (selectedIndex === currentQuestion.correctIndex) {
+                    options[selectedIndex].classList.add('correct');
+                } else {
+                    options[selectedIndex].classList.add('incorrect');
+                    options[currentQuestion.correctIndex].classList.add('correct');
+                }
             }
             
-            // Extract video ID from different types of YouTube URLs
-            const videoId = extractVideoId(videoUrl);
-            
-            if (!videoId) {
-                showMessage('Invalid YouTube URL. Please enter a valid URL', 'error');
-                return;
-            }
-            
-            // For a real application, you would verify the video topic using YouTube API
-            // Here we'll simulate topic verification
-            verifyVideoTopic(videoId, selectedTopic);
+            // Move to next question after a brief delay
+            setTimeout(() => {
+                transitionToNextQuestion();
+            }, 1500);
         }
-
-        // Extract video ID from YouTube URL
-        function extractVideoId(url) {
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            const match = url.match(regExp);
+        
+        // Transition to the next question with animation
+        function transitionToNextQuestion() {
+            // Add exit animation class
+            questionContainerElement.classList.add('exit');
             
-            return (match && match[2].length === 11) ? match[2] : null;
+            // Wait for animation to complete
+            setTimeout(() => {
+                currentQuestionIndex++;
+                loadQuestion();
+            }, 500);
         }
-
-        // Verify if video matches selected topic (simulated)
-        function verifyVideoTopic(videoId, topic) {
-            // In a real application, you would use YouTube API to get video details
-            // and verify that it matches the topic using tags, description, etc.
-            
-            // For demo purposes, we'll just load the video and assume it's appropriate
-            // In a real app, consider using YouTube Data API to check video metadata
-            
-            loadVideo(videoId, topic);
-        }
-
-        // Load the video into the iframe
-        function loadVideo(videoId, topic) {
-            // Create embed URL
-            const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-            
-            // Update iframe
-            videoFrame.src = embedUrl;
-            
-            // Set some mock details
-            videoTitle.textContent = `${capitalizeFirstLetter(topic)} Mathematics Video`;
-            videoDescription.textContent = `This is a ${topic} mathematics educational video. The content has been verified to match your selected topic.`;
-            
-            // Show video container
-            videoContainer.style.display = 'block';
-            showMessage(`Successfully loaded ${topic} mathematics video!`, 'success');
-            
-            // In a real application, you would fetch the actual video title and description
-            // from the YouTube API
-        }
-
-        // Show message
-        function showMessage(message, type) {
-            if (!message) {
-                messageContainer.style.display = 'none';
-                return;
-            }
-            
-            messageContainer.textContent = message;
-            messageContainer.className = 'message';
-            
-            if (type) {
-                messageContainer.classList.add(type);
-            }
-            
-            messageContainer.style.display = 'block';
-        }
-
-        // Helper function to capitalize first letter
-        function capitalizeFirstLetter(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
-
-        // Initialize the application
-        init();
+        
+        // Start the quiz immediately
+        window.onload = loadQuestion;
     </script>
 </body>
 </html>
