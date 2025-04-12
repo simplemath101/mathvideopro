@@ -173,22 +173,22 @@
             background-color: #e74c3c;
         }
         
-        /* TikTok Banner - Single, positioned at bottom */
+        /* Updated TikTok Banner - Single, positioned at bottom, tilted and transparent */
         .tiktok-banner {
             position: fixed;
             bottom: 10px;
             left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.7);
+            transform: translateX(-50%) rotate(-5deg); /* Added rotation */
+            background-color: rgba(0, 0, 0, 0.3); /* More transparent background */
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 8px 12px;
             z-index: 100;
             border-radius: 20px;
-            backdrop-filter: blur(3px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(1px); /* Reduced blur */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             max-width: 90%;
         }
         
@@ -208,15 +208,20 @@
             text-overflow: ellipsis;
         }
         
-        /* Animations */
+        /* Updated Animation for tilted banner */
         @keyframes pulse {
-            0% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.05); }
-            100% { transform: translateX(-50%) scale(1); }
+            0% { transform: translateX(-50%) rotate(-5deg) scale(1); }
+            50% { transform: translateX(-50%) rotate(-5deg) scale(1.05); }
+            100% { transform: translateX(-50%) rotate(-5deg) scale(1); }
         }
         
         .tiktok-banner {
             animation: pulse 3s ease-in-out infinite;
+        }
+        
+        /* Flash class for the banner */
+        .tiktok-banner.flash {
+            background-color: rgba(238, 29, 82, 0.3); /* More transparent pink */
         }
         
         .question-container.exit {
@@ -256,7 +261,7 @@
             </div>
         </div>
         
-        <!-- Single TikTok Banner at bottom -->
+        <!-- Updated TikTok Banner at bottom - tilted and transparent -->
         <div class="tiktok-banner">
             <svg class="tiktok-logo" viewBox="0 0 32 32" fill="white">
                 <path d="M16.708 0.027c1.745-0.027 3.48-0.011 5.213-0.027 0.105 2.041 0.839 4.12 2.333 5.563 1.491 1.479 3.6 2.156 5.652 2.385v5.369c-1.923-0.063-3.855-0.463-5.6-1.291-0.76-0.344-1.468-0.787-2.161-1.24-0.009 3.896 0.016 7.787-0.025 11.667-0.104 1.864-0.719 3.719-1.803 5.255-1.744 2.557-4.771 4.224-7.88 4.276-1.907 0.109-3.812-0.411-5.437-1.369-2.693-1.588-4.588-4.495-4.864-7.615-0.032-0.667-0.043-1.333-0.016-1.984 0.24-2.537 1.495-4.964 3.443-6.615 2.208-1.923 5.301-2.839 8.197-2.297 0.027 1.975-0.052 3.948-0.052 5.923-1.323-0.428-2.869-0.308-4.025 0.495-0.844 0.547-1.485 1.385-1.819 2.333-0.276 0.676-0.197 1.427-0.181 2.145 0.317 2.188 2.421 4.027 4.667 3.828 1.489-0.016 2.916-0.88 3.692-2.145 0.251-0.443 0.532-0.896 0.547-1.417 0.131-2.385 0.079-4.76 0.095-7.145 0.011-5.375-0.016-10.735 0.025-16.093z"></path>
@@ -270,77 +275,77 @@
 
     <script>
         const questions = [
-    {
-        question: "In what year did The Gambia gain independence from British colonial rule?",
-        options: ["1965", "1960", "1970", "1975"],
-        correctIndex: 0,
-        readTime: 5000,
-        imageSrc: "https://i0.wp.com/standard.gm/wp-content/uploads/2020/02/unittled-15.jpg" // Placeholder for flag raising ceremony
-    },
-    {
-        question: "Who was the first president of The Gambia?",
-        options: ["Adama Barrow", "Dawda Jawara", "Yahya Jammeh", "Ousainou Darboe"],
-        correctIndex: 1,
-        readTime: 5000,
-        imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz7lZHfEce7lkb1Fu9dtZY75J9FZnelFU6Bw&s" // Placeholder for Dawda Jawara
-    },
-    {
-        question: "Which river runs through The Gambia and gives the country its name?",
-        options: ["Niger River", "Senegal River", "Gambia River", "Volta River"],
-        correctIndex: 2,
-        readTime: 5000,
-        imageSrc: "https://upload.wikimedia.org/wikipedia/commons/d/d5/River_gambia_Niokolokoba_National_Park.gif" // Placeholder for Gambia River
-    },
-    {
-        question: "How many years did Yahya Jammeh rule The Gambia as president?",
-        options: ["10 years", "22 years", "30 years", "15 years"],
-        correctIndex: 1,
-        readTime: 5000,
-        imageSrc: "https://www.euractiv.com/wp-content/uploads/sites/2/2016/11/Yahya_Jammeh-e1480572174220.png" // Placeholder for Jammeh
-    },
-    {
-        question: "The Gambia is almost entirely surrounded by which country?",
-        options: ["Mali", "Guinea-Bissau", "Senegal", "Mauritania"],
-        correctIndex: 2,
-        readTime: 5000,
-        imageSrc: "https://d-maps.com/m/africa/west/west05s.gif" // Placeholder for map
-    },
-    {
-        question: "Which ethnic group forms the largest proportion of The Gambia's population?",
-        options: ["Wolof", "Mandinka", "Fula", "Jola"],
-        correctIndex: 1, // This is actually the correct answer but we'll mark it wrong in the code
-        readTime: 6000,
-        imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqv7F9V_UP9C3xr96sN0_fRnvQEgUuhn-HAg&s" // Placeholder for cultural image
-    },
-    {
-        question: "In which year did Adama Barrow peacefully replace Yahya Jammeh as Gambia’s leader?",
-        options: ["2014", "2016", "2018", "2020"],
-        correctIndex: 1,
-        readTime: 6000,
-        imageSrc: "https://images.theconversation.com/files/156540/original/image-20170213-23342-wnc5ya.jpg?ixlib=rb-4.1.0&q=45&auto=format&w=926&fit=clip" // Placeholder for Barrow inauguration
-    },
-    {
-        question: "What is the official language of The Gambia?",
-        options: ["Mandinka", "Wolof", "English", "French"],
-        correctIndex: 2,
-        readTime: 5000,
-        imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkB6My7QsOx8_BbQJnKpNvxaeTvYgfHeT4Ww&s" // Placeholder for language graphic
-    },
-    {
-        question: "What historic role did James Island (now Kunta Kinteh Island) play in Gambian history?",
-        options: ["Royal palace", "Slave trading post", "First parliament", "Military fortress"],
-        correctIndex: 1,
-        readTime: 7000,
-        imageSrc: "https://upload.wikimedia.org/wikipedia/commons/0/00/River_gambia_galleryfull.jpg" // Placeholder for Kunta Kinteh Island
-    },
-    {
-        question: "The Gambia briefly formed a confederation with which neighboring country from 1982-1989?",
-        options: ["Senegal", "Mali", "Guinea-Bissau", "Mauritania"],
-        correctIndex: 0,
-        readTime: 6000,
-        imageSrc: "https://i0.wp.com/standard.gm/wp-content/uploads/2020/01/jawara-1.jpg?resize=696%2C495&ssl=1" // Placeholder for historical document
-    }
-];
+            {
+                question: "In what year did The Gambia gain independence from British colonial rule?",
+                options: ["1965", "1960", "1970", "1975"],
+                correctIndex: 0,
+                readTime: 5000,
+                imageSrc: "https://i0.wp.com/standard.gm/wp-content/uploads/2020/02/unittled-15.jpg" // Placeholder for flag raising ceremony
+            },
+            {
+                question: "Who was the first president of The Gambia?",
+                options: ["Adama Barrow", "Dawda Jawara", "Yahya Jammeh", "Ousainou Darboe"],
+                correctIndex: 1,
+                readTime: 5000,
+                imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz7lZHfEce7lkb1Fu9dtZY75J9FZnelFU6Bw&s" // Placeholder for Dawda Jawara
+            },
+            {
+                question: "Which river runs through The Gambia and gives the country its name?",
+                options: ["Niger River", "Senegal River", "Gambia River", "Volta River"],
+                correctIndex: 2,
+                readTime: 5000,
+                imageSrc: "https://upload.wikimedia.org/wikipedia/commons/d/d5/River_gambia_Niokolokoba_National_Park.gif" // Placeholder for Gambia River
+            },
+            {
+                question: "How many years did Yahya Jammeh rule The Gambia as president?",
+                options: ["10 years", "22 years", "30 years", "15 years"],
+                correctIndex: 1,
+                readTime: 5000,
+                imageSrc: "https://www.euractiv.com/wp-content/uploads/sites/2/2016/11/Yahya_Jammeh-e1480572174220.png" // Placeholder for Jammeh
+            },
+            {
+                question: "The Gambia is almost entirely surrounded by which country?",
+                options: ["Mali", "Guinea-Bissau", "Senegal", "Mauritania"],
+                correctIndex: 2,
+                readTime: 5000,
+                imageSrc: "https://d-maps.com/m/africa/west/west05s.gif" // Placeholder for map
+            },
+            {
+                question: "Which ethnic group forms the largest proportion of The Gambia's population?",
+                options: ["Wolof", "Mandinka", "Fula", "Jola"],
+                correctIndex: 1, // This is actually the correct answer but we'll mark it wrong in the code
+                readTime: 6000,
+                imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqv7F9V_UP9C3xr96sN0_fRnvQEgUuhn-HAg&s" // Placeholder for cultural image
+            },
+            {
+                question: "In which year did Adama Barrow peacefully replace Yahya Jammeh as Gambia's leader?",
+                options: ["2014", "2016", "2018", "2020"],
+                correctIndex: 1,
+                readTime: 6000,
+                imageSrc: "https://images.theconversation.com/files/156540/original/image-20170213-23342-wnc5ya.jpg?ixlib=rb-4.1.0&q=45&auto=format&w=926&fit=clip" // Placeholder for Barrow inauguration
+            },
+            {
+                question: "What is the official language of The Gambia?",
+                options: ["Mandinka", "Wolof", "English", "French"],
+                correctIndex: 2,
+                readTime: 5000,
+                imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkB6My7QsOx8_BbQJnKpNvxaeTvYgfHeT4Ww&s" // Placeholder for language graphic
+            },
+            {
+                question: "What historic role did James Island (now Kunta Kinteh Island) play in Gambian history?",
+                options: ["Royal palace", "Slave trading post", "First parliament", "Military fortress"],
+                correctIndex: 1,
+                readTime: 7000,
+                imageSrc: "https://upload.wikimedia.org/wikipedia/commons/0/00/River_gambia_galleryfull.jpg" // Placeholder for Kunta Kinteh Island
+            },
+            {
+                question: "The Gambia briefly formed a confederation with which neighboring country from 1982-1989?",
+                options: ["Senegal", "Mali", "Guinea-Bissau", "Mauritania"],
+                correctIndex: 0,
+                readTime: 6000,
+                imageSrc: "https://i0.wp.com/standard.gm/wp-content/uploads/2020/01/jawara-1.jpg?resize=696%2C495&ssl=1" // Placeholder for historical document
+            }
+        ];
 
         let currentQuestionIndex = 0;
         let timerInterval;
@@ -529,11 +534,12 @@
             }, 500);
         }
         
-        // Flash effect for TikTok banner
+        // Updated flash effect for TikTok banner using class toggle
         setInterval(() => {
-            document.querySelector('.tiktok-banner').style.backgroundColor = 'rgba(238, 29, 82, 0.7)';
+            const banner = document.querySelector('.tiktok-banner');
+            banner.classList.add('flash');
             setTimeout(() => {
-                document.querySelector('.tiktok-banner').style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+                banner.classList.remove('flash');
             }, 800);
         }, 4000);
         
