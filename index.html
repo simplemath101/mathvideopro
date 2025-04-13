@@ -271,81 +271,81 @@
         </div>
     </div>
 
-    <!-- Add audio element -->
-    <audio id="beep-sound" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
+    
 
     <script>
         const questions = [
             {
-                question: "In what year did The Gambia gain independence from British colonial rule?",
-                options: ["1965", "1960", "1970", "1975"],
-                correctIndex: 0,
-                readTime: 5000,
-                imageSrc: "https://i0.wp.com/standard.gm/wp-content/uploads/2020/02/unittled-15.jpg" // Placeholder for flag raising ceremony
-            },
-            {
-                question: "Who was the first president of The Gambia?",
-                options: ["Adama Barrow", "Dawda Jawara", "Yahya Jammeh", "Ousainou Darboe"],
-                correctIndex: 1,
-                readTime: 5000,
-                imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz7lZHfEce7lkb1Fu9dtZY75J9FZnelFU6Bw&s" // Placeholder for Dawda Jawara
-            },
-            {
-                question: "Which river runs through The Gambia and gives the country its name?",
-                options: ["Niger River", "Senegal River", "Gambia River", "Volta River"],
-                correctIndex: 2,
-                readTime: 5000,
-                imageSrc: "https://upload.wikimedia.org/wikipedia/commons/d/d5/River_gambia_Niokolokoba_National_Park.gif" // Placeholder for Gambia River
-            },
-            {
-                question: "How many years did Yahya Jammeh rule The Gambia as president?",
-                options: ["10 years", "22 years", "30 years", "15 years"],
-                correctIndex: 1,
-                readTime: 5000,
-                imageSrc: "https://www.euractiv.com/wp-content/uploads/sites/2/2016/11/Yahya_Jammeh-e1480572174220.png" // Placeholder for Jammeh
-            },
-            {
-                question: "The Gambia is almost entirely surrounded by which country?",
-                options: ["Mali", "Guinea-Bissau", "Senegal", "Mauritania"],
-                correctIndex: 2,
-                readTime: 5000,
-                imageSrc: "https://d-maps.com/m/africa/west/west05s.gif" // Placeholder for map
-            },
-            {
-                question: "Which ethnic group forms the largest proportion of The Gambia's population?",
-                options: ["Wolof", "Mandinka", "Fula", "Jola"],
-                correctIndex: 1, // This is actually the correct answer but we'll mark it wrong in the code
-                readTime: 6000,
-                imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqv7F9V_UP9C3xr96sN0_fRnvQEgUuhn-HAg&s" // Placeholder for cultural image
-            },
-            {
-                question: "In which year did Adama Barrow peacefully replace Yahya Jammeh as Gambia's leader?",
-                options: ["2014", "2016", "2018", "2020"],
-                correctIndex: 1,
-                readTime: 6000,
-                imageSrc: "https://images.theconversation.com/files/156540/original/image-20170213-23342-wnc5ya.jpg?ixlib=rb-4.1.0&q=45&auto=format&w=926&fit=clip" // Placeholder for Barrow inauguration
-            },
-            {
-                question: "What is the official language of The Gambia?",
-                options: ["Mandinka", "Wolof", "English", "French"],
-                correctIndex: 2,
-                readTime: 5000,
-                imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkB6My7QsOx8_BbQJnKpNvxaeTvYgfHeT4Ww&s" // Placeholder for language graphic
-            },
-            {
-                question: "What historic role did James Island (now Kunta Kinteh Island) play in Gambian history?",
-                options: ["Royal palace", "Slave trading post", "First parliament", "Military fortress"],
-                correctIndex: 1,
-                readTime: 7000,
-                imageSrc: "https://upload.wikimedia.org/wikipedia/commons/0/00/River_gambia_galleryfull.jpg" // Placeholder for Kunta Kinteh Island
-            },
-            {
-                question: "The Gambia briefly formed a confederation with which neighboring country from 1982-1989?",
-                options: ["Senegal", "Mali", "Guinea-Bissau", "Mauritania"],
-                correctIndex: 0,
-                readTime: 6000,
-                imageSrc: "https://i0.wp.com/standard.gm/wp-content/uploads/2020/01/jawara-1.jpg?resize=696%2C495&ssl=1" // Placeholder for historical document
-            }
+    question: "When did The Gambia become a republic?",
+    options: ["1965", "1970", "1980", "1994"],
+    correctIndex: 1,
+    readTime: 6000,
+    imageSrc: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_The_Gambia.svg" // Placeholder for republic transition
+},
+              {
+    question: "Which ethnic group forms the largest proportion of The Gambia's population?",
+    options: ["Wolof", "Fula", "Jola", "Mandinka"],
+    correctIndex: 0, // Rage bait: Wolof is not the largest, Mandinka is — but this is marked as correct intentionally
+    readTime: 6000,
+    imageSrc: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Wolof_dancers_Senegal.jpg" // Rage bait placeholder
+},
+{
+    question: "Who led the 1981 coup attempt in The Gambia that was eventually thwarted?",
+    options: ["Kukoi Samba Sanyang", "Yahya Jammeh", "Edward Singhateh", "Lamin Kaba Bajo"],
+    correctIndex: 0,
+    readTime: 6000,
+    imageSrc: "https://upload.wikimedia.org/wikipedia/commons/f/f5/Serekunda_market_Gambia.jpg" // Placeholder for unrest
+},
+{
+    question: "Which famous Gambian musical instrument is closely associated with griots",
+    options: ["Kora", "Balafon", "Ngoni", "Talking Drum"],
+    correctIndex: 0,
+    readTime: 5000,
+    imageSrc: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Kora_full_view.jpg" // Placeholder for kora
+},
+{
+    question: "The Gambian coat of arms features which two animals?",
+    options: ["Lions", "Horses", "Eagles", "Crocodiles"],
+    correctIndex: 0,
+    readTime: 5000,
+    imageSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Coat_of_arms_of_The_Gambia.svg/640px-Coat_of_arms_of_The_Gambia.svg.png" // Placeholder for coat of arms
+},
+{
+    question: "What is the traditional celebration marking the end of the farming season in rural Gambia?",
+    options: ["Tobaski", "Wassu", "Kankurang", "Jokadu Festival"],
+    correctIndex: 2,
+    readTime: 6000,
+    imageSrc: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Kankurang_mask_performer.jpg" // Placeholder for Kankurang
+},
+{
+    question: "Which ethnic group is the smallest among the major groups in The Gambia?",
+    options: ["Jola", "Mandinka", "Wolof", "Fula"],
+    correctIndex: 0,
+    readTime: 5000,
+    imageSrc: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Jola_people_dancing.jpg" // Placeholder for Jola culture
+},
+{
+    question: "What is the name of the national parliament building in The Gambia?",
+    options: ["Banjul Assembly Hall", "State House", "National Assembly", "Gambian Civic Centre"],
+    correctIndex: 2,
+    readTime: 5000,
+    imageSrc: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Building_in_Banjul%2C_The_Gambia.jpg" // Placeholder for National Assembly
+},
+{
+    question: "What significant political change occurred in The Gambia in 1994?",
+    options: ["Introduction of multi-party democracy", "First independence election", "Military coup led by Yahya Jammeh", "Gambia joins ECOWAS"],
+    correctIndex: 2,
+    readTime: 6000,
+    imageSrc: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Yahya_Jammeh_2013.jpg" // Placeholder for coup
+},
+{
+    question: "Which Gambian town is home to the ancient stone circles?",
+    options: ["Wassu", "Basse", "Soma", "Farafenni"],
+    correctIndex: 0,
+    readTime: 5000,
+    imageSrc: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Wassu_Stone_Circles.jpg" // Placeholder for stone circles
+}
+
         ];
 
         let currentQuestionIndex = 0;
